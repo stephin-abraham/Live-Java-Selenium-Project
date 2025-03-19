@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class TC2 extends Base {
     @Test
-    public void registerUser() {
+    public void registerUser() throws InterruptedException {
 
         driver.get("https://tutorialsninja.com/demo/index.php?route=account/register");
 
@@ -24,7 +24,12 @@ public class TC2 extends Base {
 
         String windowTitle =  driver.getTitle();
         System.out.println(windowTitle);
-//        String expectedText = "Your Account has Been Created";
-//        Assert.assertEquals(driver.findElement(By.xpath("//div[@id='common-success']//h1")).getText(),expectedText());
+        String expectedText = "Warning: E-Mail Address is already registered!";
+        Assert.assertEquals(driver.findElement(By.xpath("//*[@class='alert alert-danger alert-dismissible']")).getText(),expectedText);
+        String text = driver.findElement(By.xpath("//*[@class='alert alert-danger alert-dismissible']")).getText();
+        System.out.println(text);
+
+        Thread.sleep(2000);
+        driver.close();
     }
 }
